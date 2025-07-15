@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React from "react";
+import { Grid } from "@mui/material";
+import LeftPane from "./components/leftPane/LeftPane"; // Import LeftPane
+import CenterPane from "./components/centerPane/CenterPane";
+import RightPane from "./components/RightPane";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Grid container spacing={1} style={{ height: "100vh" }}>
+        {/* Left Pane */}
+        <Grid size={{ xs: 12, sm: 2 }}>
+          <LeftPane />
+        </Grid>
+
+        {/* Center Pane */}
+        <Grid size={{ xs: 12, sm: 6 }}>
+          <CenterPane />
+        </Grid>
+
+        {/* Right Pane */}
+        <Grid size={{ xs: 12, sm: 4 }}>
+          <RightPane />
+        </Grid>
+      </Grid>
     </div>
   );
 }
