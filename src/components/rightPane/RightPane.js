@@ -9,9 +9,17 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Box,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { updateFileData } from "../features/appSlice"; // Import the action
+import { updateFileData } from "../../features/appSlice"; // Import the action
+import "./RightPane.css"; // Import the CSS for styling
+import {
+  AddOutlined,
+  CloseOutlined,
+  DeleteForeverOutlined,
+  SaveOutlined,
+} from "@mui/icons-material";
 
 const RightPane = () => {
   const dispatch = useDispatch();
@@ -28,6 +36,15 @@ const RightPane = () => {
     const newFilters = [...filters];
     newFilters[index][field] = value;
     setFilters(newFilters);
+  };
+
+  const handleDeleteFilter = (index) => {
+    const newFilters = filters.filter((_, i) => i !== index);
+    setFilters(newFilters);
+  };
+
+  const handleCancel = () => {
+    setFilters([]); // Reset the filters array
   };
 
   const handleSaveChanges = () => {
@@ -76,30 +93,47 @@ const RightPane = () => {
         }))
       : [];
 
-  console.log("Columns:", columns);
+  // Function to check if the Save button should be disabled
+  const isSaveDisabled = () => {
+    return !filters.some((filter) => filter.column && filter.sortType);
+  };
 
   return (
-    <Paper elevation={3} style={{ height: "100%", padding: "16px" }}>
+    <Paper elevation={3} style={{ height: "100%", padding: "20px 10px" }}>
       <Typography variant="h5" gutterBottom>
         Right Pane
       </Typography>
-      <Typography>
-        This is the right pane content. You can provide additional resources or
-        links here.
-      </Typography>
 
       {/* Add Filter Button */}
-      <Button variant="contained" color="primary" onClick={handleAddFilter}>
-        Add Filter
-      </Button>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        marginBottom={2}
+      >
+        <Typography variant="h6">
+          Total column to sort: {filters.length}
+        </Typography>
+        <Button
+          variant="contained"
+          size="small"
+          color="primary"
+          onClick={handleAddFilter}
+          startIcon={<AddOutlined />}
+        >
+          Add Filter
+        </Button>
+      </Box>
 
       {/* Render Filters */}
       {filters.map((filter, index) => (
-        <Grid container spacing={2} key={index} style={{ marginTop: "10px" }}>
-          <Grid size={{ md: 6 }}>
-            <FormControl fullWidth>
-              <InputLabel>Column</InputLabel>
+        <Grid container spacing={1} key={index}>
+          <Grid size={{ md: 5 }}>
+            <FormControl fullWidth sx={{ mb: 2 }}>
+              <InputLabel style={{ left: "-13px" }}>Select column</InputLabel>
               <Select
+                variant="standard"
+                sx={{ m: 0 }}
                 value={filter.column}
                 onChange={(e) =>
                   handleFilterChange(index, "column", e.target.value)
@@ -123,10 +157,13 @@ const RightPane = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid size={{ md: 6 }}>
+          <Grid size={{ md: 5 }}>
             <FormControl fullWidth disabled={!filter.column}>
-              <InputLabel>Sort Type</InputLabel>
+              <InputLabel>Select sort type</InputLabel>
               <Select
+                variant="standard"
+                className="selectItem"
+                sx={{ m: 0 }}
                 value={filter.sortType}
                 onChange={(e) =>
                   handleFilterChange(index, "sortType", e.target.value)
@@ -137,12 +174,39 @@ const RightPane = () => {
               </Select>
             </FormControl>
           </Grid>
+          <Grid size={{ md: 2 }}>
+            <Button onClick={() => handleDeleteFilter(index)}>
+              <DeleteForeverOutlined
+                style={{ width: "30px", marginTop: "14px" }}
+                color="error"
+              />
+            </Button>
+          </Grid>
         </Grid>
       ))}
 
-      <Button variant="contained" color="success" onClick={handleSaveChanges}>
-        Save Changes
-      </Button>
+      {/* Flexbox for Save and Cancel buttons */}
+      <Box display="flex" justifyContent="flex-end" marginTop={2}>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={handleSaveChanges}
+          endIcon={<SaveOutlined />}
+          size="small"
+          disabled={isSaveDisabled()} // Disable the button based on the check
+        >
+          Save Changes
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={handleCancel}
+          startIcon={<CloseOutlined />}
+          size="small"
+          style={{ marginLeft: "10px" }} // Add some space between buttons
+        >
+          Cancel
+        </Button>
+      </Box>
     </Paper>
   );
 };

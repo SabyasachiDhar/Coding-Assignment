@@ -47,8 +47,13 @@ const SubFolderItem = ({
 
   return (
     <>
-      <ListItem button onClick={handleClick} style={{ padding: "8px 5px" }}>
-        <ListItemIcon>{open ? <ExpandLess /> : <ExpandMore />}</ListItemIcon>
+      <ListItem button onClick={handleClick} style={{ padding: "2px 5px" }}>
+        <ListItemIcon style={{ minWidth: "30px" }}>
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </ListItemIcon>
+        <ListItemIcon style={{ minWidth: "30px" }}>
+          {subFolder.folderIconLeft}
+        </ListItemIcon>
         <ListItemText primary={subFolder.name} />
         <ListItemIcon onClick={handleUploadClick}>
           {subFolder.addFolterIconRight}
@@ -57,11 +62,10 @@ const SubFolderItem = ({
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {subFolder.listItems.map((file, index) => (
-            <ListItem
-              key={index}
-              style={{ paddingLeft: "35px", paddingRight: "6px" }}
-            >
-              <ListItemIcon>{file.fileIcon}</ListItemIcon>
+            <ListItem key={index} style={{ padding: "2px 6px 2px 35px" }}>
+              <ListItemIcon style={{ minWidth: "30px" }}>
+                {file.fileIcon}
+              </ListItemIcon>
               <ListItemText
                 onClick={(event) => handleShowFileData(event, file)} // Pass the file to the handler
                 primary={`${file.name}`}

@@ -19,8 +19,10 @@ const FolderItem = ({ folder, onFileUpload, folderIndex, onShowFileData }) => {
 
   return (
     <>
-      <ListItem button onClick={handleClick}>
-        <ListItemIcon>{folder.folderIcon}</ListItemIcon>
+      <ListItem button onClick={handleClick} style={{ padding: "2px 5px" }}>
+        <ListItemIcon style={{ minWidth: "30px" }}>
+          {folder.folderIcon}
+        </ListItemIcon>
         <ListItemText primary={folder.folderName} />
         {folder.listItems.length > 0 ? (
           open ? (

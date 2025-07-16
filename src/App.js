@@ -3,7 +3,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 import LeftPane from "./components/leftPane/LeftPane"; // Import LeftPane
 import CenterPane from "./components/centerPane/CenterPane";
-import RightPane from "./components/RightPane";
+import RightPane from "./components/rightPane/RightPane";
 import "./App.css";
 
 function App() {

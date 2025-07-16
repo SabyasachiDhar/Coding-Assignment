@@ -51,12 +51,12 @@ const CenterPane = () => {
       : [];
 
   return (
-    <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
+    <Paper elevation={3} style={{ padding: "20px 10px", height: "100%" }}>
       <Typography variant="h5" gutterBottom>
         Center Pane
       </Typography>
       {rowsWithId.length > 0 ? (
-        <div style={{ height: 400, width: "100%" }}>
+        <div style={{ height: 600, width: "100%" }}>
           <DataGrid
             rows={rowsWithId} // Use rowsWithId which has unique ids
             columns={columns}

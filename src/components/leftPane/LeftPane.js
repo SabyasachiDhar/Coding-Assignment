@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { addFile } from "../../features/appSlice"; // Updated import path
 import Papa from "papaparse"; // For CSV parsing
 import * as XLSX from "xlsx"; // For Excel file parsing
-import FolderItem from "./FolderItem"; // Import FolderItem
 import { TopicOutlined } from "@mui/icons-material";
 import { v4 as uuidv4 } from "uuid"; // Import UUID function
+import FolderItem from "./FolderItem"; // Import FolderItem
+import "./LeftPane.css"; // Import the CSS for styling
 
 const LeftPane = () => {
   const dispatch = useDispatch();
@@ -95,12 +96,12 @@ const LeftPane = () => {
 
   return (
     <div style={{ height: "100%", display: "flex" }}>
-      <Paper elevation={3} style={{ padding: "8px", flex: 1 }}>
+      <Paper elevation={3} style={{ padding: "20px 10px", flex: 1 }}>
         <Typography variant="h5" gutterBottom>
           Left Pane
         </Typography>
 
-        <List>
+        <List style={{ padding: 0 }}>
           {sideBarListItems.map((folder, index) => (
             <FolderItem
               key={index}
